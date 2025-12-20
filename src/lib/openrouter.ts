@@ -2,7 +2,7 @@
 
 import { getMemoryManager, ConversationMemoryManager } from './conversation-memory';
 
-const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY || "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";
+const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
 const OPENROUTER_MODEL = import.meta.env.VITE_OPENROUTER_MODEL || "openai/gpt-3.5-turbo";
 
@@ -93,28 +93,28 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 const rateLimit = async () => {
   const now = Date.now();
   const timeSinceLastRequest = now - lastRequestTime;
-  
+
   if (timeSinceLastRequest < MIN_REQUEST_INTERVAL) {
     const waitTime = MIN_REQUEST_INTERVAL - timeSinceLastRequest;
     await delay(waitTime);
   }
-  
+
   lastRequestTime = Date.now();
 };
 
-export async function getOpenRouterResponse({ 
-  userMessage, 
-  code, 
-  language, 
-  question, 
+export async function getOpenRouterResponse({
+  userMessage,
+  code,
+  language,
+  question,
   sessionId = 'default',
   skillLevel = 'beginner',
   isBetterSolution = false
-}: { 
-  userMessage: string; 
-  code: string; 
-  language: string; 
-  question: string; 
+}: {
+  userMessage: string;
+  code: string;
+  language: string;
+  question: string;
   sessionId?: string;
   skillLevel?: 'beginner' | 'intermediate' | 'advanced';
   isBetterSolution?: boolean;
@@ -129,11 +129,11 @@ export async function getOpenRouterResponse({
 
   // Get memory manager for this session
   const memoryManager = getMemoryManager(sessionId);
-  
+
   // Check if user provided code and question
   const hasCode = code && code.trim().length > 0;
   const hasQuestion = question && question.trim().length > 0;
-  
+
   // Construct the current user message with context
   let userContent = `PROBLEM CONTEXT:
 Language: ${language}
@@ -181,11 +181,11 @@ ${userMessage}
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       // Making API request (attempt ${attempt}/${maxRetries})
-      
+
       // Get conversation history and construct messages
       const systemPrompt = getSystemPrompt(skillLevel, isBetterSolution);
       const messages = await memoryManager.getOpenRouterMessages(systemPrompt, userContent);
-      
+
       const requestBody = {
         model: OPENROUTER_MODEL,
         messages: messages,
@@ -195,7 +195,7 @@ ${userMessage}
       };
 
       const requestSize = JSON.stringify(requestBody).length;
-      
+
       // Check if request is too large
       if (requestSize > 30000) {
         console.warn("Request is quite large. Consider shortening your code or message.");
@@ -204,7 +204,7 @@ ${userMessage}
       // Check if we're in a browser environment and add CORS headers if needed
       const fetchOptions: RequestInit = {
         method: "POST",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
           "HTTP-Referer": window.location.origin,
@@ -230,7 +230,7 @@ ${userMessage}
         // Rate limited - wait longer and retry
         const retryAfter = response.headers.get('Retry-After');
         const waitTime = retryAfter ? parseInt(retryAfter) * 1000 : Math.pow(2, attempt) * 1000;
-        
+
         console.warn(`Rate limited. Waiting ${waitTime}ms before retry...`);
         await delay(waitTime);
         continue;
@@ -239,7 +239,7 @@ ${userMessage}
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         console.error("OpenRouter API Error:", response.status, response.statusText, errorData);
-        
+
         if (response.status === 400) {
           throw new Error("Invalid request format. Please check your input.");
         } else if (response.status === 401) {
@@ -258,11 +258,11 @@ ${userMessage}
       }
 
       const data = await response.json();
-      
+
       // Check for API errors in the response
       if (data.error) {
         console.error("OpenRouter API Error:", data.error);
-        
+
         if (data.error.code === 429) {
           // Rate limited in response body
           const waitTime = Math.pow(2, attempt) * 1000;
@@ -270,46 +270,46 @@ ${userMessage}
           await delay(waitTime);
           continue;
         }
-        
+
         throw new Error(`API Error: ${data.error.message || 'Unknown error'}`);
       }
 
       // Extract the response text
       const responseText = data?.choices?.[0]?.message?.content;
-      
+
       if (!responseText) {
         console.error("Invalid response format from OpenRouter API");
         throw new Error("Invalid response format from OpenRouter API");
       }
-      
+
       // Save assistant response to memory
       await memoryManager.addMessage('assistant', responseText);
-      
+
       // Check if we need to truncate history to prevent oversized requests
       if (await memoryManager.shouldTruncate()) {
         await memoryManager.truncateHistory();
       }
-      
+
       return responseText;
     } catch (err) {
       lastError = err instanceof Error ? err : new Error(String(err));
       console.error(`API Error (attempt ${attempt}/${maxRetries}):`, lastError.message);
-      
+
       // Check for CORS errors
       if (lastError.message.includes('CORS') || lastError.message.includes('cors')) {
         console.error("CORS error detected. This might be a browser security issue.");
       }
-      
+
       // Check for network errors
       if (lastError.message.includes('fetch') || lastError.message.includes('network')) {
         console.error("Network error detected. Check your internet connection.");
       }
-      
+
       // If this is the last attempt, throw the error
       if (attempt === maxRetries) {
         break;
       }
-      
+
       // Wait before retrying (exponential backoff)
       const waitTime = Math.pow(2, attempt) * 1000;
       await delay(waitTime);

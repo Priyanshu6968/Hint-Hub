@@ -24,24 +24,24 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-foreground">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <a 
-                  href="/" 
+                <a
+                  href="/"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Home
                 </a>
               </li>
               <li>
-                <a 
-                  href="/study-plans" 
+                <a
+                  href="/study-plans"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Study Plans
                 </a>
               </li>
               <li>
-                <a 
-                  href="/code-space" 
+                <a
+                  href="/code-space"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Code Space
@@ -54,14 +54,14 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="text-lg font-semibold text-foreground">Get in Touch</h4>
             <div className="space-y-3">
-              <a 
+              <a
                 href="mailto:priyanshu469@gmail.com"
                 className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Mail className="h-4 w-4" />
                 priyanshu469@gmail.com
               </a>
-              <a 
+              <a
                 href="https://wa.me/917497030568"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -71,20 +71,12 @@ const Footer = () => {
                 +91 7497030568
               </a>
             </div>
-            
+
             {/* Social Links */}
             <div className="flex gap-4 pt-2">
-              <a 
-                href="https://www.linkedin.com/in/priyanshu/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-muted hover:bg-muted/80 transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
-              </a>
-              <a 
-                href="https://www.instagram.com/priyanshu/"
+
+              <a
+                href="https://www.instagram.com/pryanshunigam/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg bg-muted hover:bg-muted/80 transition-colors"
