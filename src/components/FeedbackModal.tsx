@@ -41,7 +41,7 @@ const FeedbackModal = ({ children }: FeedbackModalProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name || !formData.email || !formData.type || !formData.message) {
       toast({
         title: "Missing Information",
@@ -56,7 +56,7 @@ const FeedbackModal = ({ children }: FeedbackModalProps) => {
     try {
       // Create Gmail compose URL with pre-filled content
       const subject = `[Hint Hub Feedback] ${formData.type.charAt(0).toUpperCase() + formData.type.slice(1)}`;
-      const body = `Hello Shubham,
+      const body = `Hello Priyanshu,
 
 I'm sending feedback about Hint Hub:
 
@@ -73,16 +73,16 @@ ${formData.message}
 This feedback was sent through the Hint Hub feedback form.`;
 
       // Gmail compose URL
-      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=work.shubhamkapoor2005@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=priyanshu469@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
       // Open Gmail in new tab
       window.open(gmailUrl, '_blank');
-      
+
       toast({
         title: "Opening Gmail",
         description: "Gmail will open in a new tab with pre-filled feedback. Please send the email to complete your feedback submission.",
       });
-      
+
       // Reset form
       setFormData({
         name: "",
@@ -95,7 +95,7 @@ This feedback was sent through the Hint Hub feedback form.`;
       console.error('Error opening Gmail:', error);
       toast({
         title: "Error",
-        description: "Could not open Gmail. Please email work.shubhamkapoor2005@gmail.com directly.",
+        description: "Could not open Gmail. Please email priyanshu469@gmail.com directly.",
         variant: "destructive"
       });
     } finally {
@@ -120,7 +120,7 @@ This feedback was sent through the Hint Hub feedback form.`;
             Send Feedback
           </DialogTitle>
         </DialogHeader>
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
@@ -145,7 +145,7 @@ This feedback was sent through the Hint Hub feedback form.`;
               />
             </div>
           </div>
-          
+
           <div className="space-y-2">
             <Label htmlFor="type">Feedback Type *</Label>
             <Select value={formData.type} onValueChange={(value) => handleInputChange("type", value)}>
@@ -161,7 +161,7 @@ This feedback was sent through the Hint Hub feedback form.`;
               </SelectContent>
             </Select>
           </div>
-          
+
           <div className="space-y-2">
             <Label htmlFor="message">Message *</Label>
             <Textarea
@@ -173,7 +173,7 @@ This feedback was sent through the Hint Hub feedback form.`;
               required
             />
           </div>
-          
+
           <div className="flex justify-end gap-2 pt-4">
             <Button
               type="button"

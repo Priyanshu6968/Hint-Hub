@@ -8,7 +8,7 @@ const SupportWidget = () => {
   const [copied, setCopied] = useState(false);
 
   const handleSupport = () => {
-    window.open('https://razorpay.me/@shubham4914', '_blank');
+    window.open('https://razorpay.me/@priyanshu4914', '_blank');
   };
 
   const handleShare = async () => {
@@ -75,7 +75,7 @@ const SupportWidget = () => {
                 <X className="h-4 w-4" />
               </Button>
             </div>
-            
+
             {/* Content */}
             <div className="mb-5">
               <p className="text-card-foreground leading-relaxed mb-2">
@@ -93,7 +93,7 @@ const SupportWidget = () => {
               <span className="px-2 py-1 rounded-full bg-secondary text-secondary-foreground border border-border/60">Netbanking</span>
             </div>
             {/* Quick amounts removed as per preference */}
-            
+
             {/* Support Button */}
             <Button
               onClick={handleSupport}
@@ -115,7 +115,7 @@ const SupportWidget = () => {
                 {copied ? 'Link copied!' : 'Share Hint Hub'}
               </Button>
             </div>
-            
+
             {/* Footer */}
             <div className="mt-4 pt-4 border-t border-border/60">
               <p className="text-xs text-muted-foreground text-center">

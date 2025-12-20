@@ -11,7 +11,7 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="space-y-4">
             <div>
-              <h3 className="text-xl font-bold text-foreground">Shubham Kapoor</h3>
+              <h3 className="text-xl font-bold text-foreground">Priyanshu</h3>
               <p className="text-muted-foreground mt-2">Do it for the impact</p>
             </div>
             <p className="text-sm text-muted-foreground">
@@ -55,27 +55,27 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-foreground">Get in Touch</h4>
             <div className="space-y-3">
               <a 
-                href="mailto:work.shubhamkapoor2005@gmail.com"
+                href="mailto:priyanshu469@gmail.com"
                 className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Mail className="h-4 w-4" />
-                work.shubhamkapoor2005@gmail.com
+                priyanshu469@gmail.com
               </a>
               <a 
-                href="https://wa.me/919588398192"
+                href="https://wa.me/917497030568"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Phone className="h-4 w-4" />
-                +91 9588398192
+                +91 7497030568
               </a>
             </div>
             
             {/* Social Links */}
             <div className="flex gap-4 pt-2">
               <a 
-                href="https://www.linkedin.com/in/shubham-kapoor-159545303/"
+                href="https://www.linkedin.com/in/priyanshu/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg bg-muted hover:bg-muted/80 transition-colors"
@@ -84,7 +84,7 @@ const Footer = () => {
                 <Linkedin className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
               </a>
               <a 
-                href="https://www.instagram.com/shubham_kapoor_123/"
+                href="https://www.instagram.com/priyanshu/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg bg-muted hover:bg-muted/80 transition-colors"
@@ -100,14 +100,14 @@ const Footer = () => {
         <div className="border-t border-border pt-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <span>© {currentYear} Shubham Kapoor. All rights reserved.</span>
+              <span>© {currentYear} Priyanshu. All rights reserved.</span>
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <span>Made with</span>
               <Heart className="h-4 w-4 text-red-500 fill-current" />
               <span>and</span>
               <Coffee className="h-4 w-4 text-amber-600" />
-              <span>by Shubham</span>
+              <span>by Priyanshu</span>
             </div>
           </div>
         </div>
